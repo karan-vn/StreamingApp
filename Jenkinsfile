@@ -12,7 +12,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                url: 'https://github.com/karan-vn/StreamingApp'
+                url: 'https://github.com/YOUR_GITHUB_USERNAME/StreamingApp.git'
             }
         }
 
@@ -34,10 +34,11 @@ pipeline {
             }
         }
 
-       stage('Build Auth') {
+        stage('Build Chat') {
             steps {
                 sh '''
-                docker build -t auth-service ./backend/authService
+                docker build -t chat-service \
+                -f backend/chatService/Dockerfile backend
                 '''
             }
         }
