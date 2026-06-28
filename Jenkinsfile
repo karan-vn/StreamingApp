@@ -34,11 +34,10 @@ pipeline {
             }
         }
 
-        stage('Build Chat') {
+       stage('Build Auth') {
             steps {
                 sh '''
-                docker build -t chat-service \
-                -f backend/chatService/Dockerfile backend
+                docker build -t auth-service ./backend/authService
                 '''
             }
         }
