@@ -12,7 +12,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                url: 'https://github.com/YOUR_GITHUB_USERNAME/StreamingApp.git'
+                url: 'https://github.com/karan-vn/StreamingApp.git'
             }
         }
 
