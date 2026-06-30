@@ -1,0 +1,44 @@
+replicaCount: 1
+namespace: streamingapp
+imageRegistry: 332779205001.dkr.ecr.us-east-1.amazonaws.com
+imageTag: latest
+
+mongodb:
+  image: mongo:6.0
+  port: 27017
+
+services:
+  frontend:
+    name: frontend
+    image: frontend
+    port: 80
+    type: LoadBalancer
+    env:
+      REACT_APP_AUTH_API_URL: http://auth-service:3001
+      REACT_APP_STREAMING_API_URL: http://streaming-service:3002
+      REACT_APP_ADMIN_API_URL: http://admin-service:3003
+      REACT_APP_CHAT_API_URL: http://chat-service:3004
+
+  auth:
+    name: auth-service
+    image: auth-service
+    port: 3001
+    type: ClusterIP
+
+  streaming:
+    name: streaming-service
+    image: streaming-service
+    port: 3002
+    type: ClusterIP
+
+  admin:
+    name: admin-service
+    image: admin-service
+    port: 3003
+    type: ClusterIP
+
+  chat:
+    name: chat-service
+    image: chat-service
+    port: 3004
+    type: ClusterIP
