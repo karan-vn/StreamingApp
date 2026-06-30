@@ -63,7 +63,7 @@ pipeline {
 
         stage('Push to ECR') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'karan aws-creds']]) {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'karan-aws-creds']]) {
                     sh '''
                         aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | \
                           docker login --username AWS --password-stdin ${ECR_REGISTRY}
@@ -80,7 +80,7 @@ pipeline {
 
         stage('Deploy to EKS') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'karan aws-creds']]) {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'karan-aws-creds']]) {
                     sh '''
                         aws eks update-kubeconfig --name ${EKS_CLUSTER_NAME} --region ${AWS_DEFAULT_REGION}
 
@@ -94,7 +94,7 @@ pipeline {
 
         stage('Send SNS Alert') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'karan aws-creds']]) {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'karan-aws-creds']]) {
                     sh '''
                         aws sns publish \
                           --topic-arn arn:aws:sns:us-east-2:832767338171:streamingapp-alerts \
